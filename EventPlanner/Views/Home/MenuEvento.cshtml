@@ -1,0 +1,51 @@
+﻿@model EventPlanner.Models.Evento
+
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        .search-container {
+            display: flex;
+            justify-content: center;
+            margin: 20px 0;
+        }
+
+            .search-container input {
+                width: 50%;
+                padding: 10px;
+            }
+    </style>
+</head>
+<body>
+    @using (Html.BeginForm("EventoEncontrado", "Evento", FormMethod.Get))
+    {
+        <div class="search-container">
+            <input asp-for="Buscador" type="text" placeholder="Pesquisar eventos" />
+            <input asp-for="ID" type="hidden" />
+            <input type="submit" value="Pesquisar" />
+            <span asp-validation-for="Buscador" class="text-danger"></span>
+        </div>
+    }
+
+    @if (Model != null)
+    {
+        <div class="evento">
+            <h2>@Model.NomeEvento</h2>
+            <p>@Model.DataCriacaoFormatadaBr</p>
+            <div class="buttons">
+                @Html.ActionLink("Detalhes do Evento", "EstatisticasEventoInfantil", "Evento")
+                @Html.ActionLink("Atualizar", "EditarParaView", "Evento", new { id = Model.ID }, null)
+                @Html.ActionLink("Deletar", "Delete", "Evento", new { id = Model.ID }, null)
+            </div>
+        </div>
+    }
+    else
+    {
+        <div class="evento">
+            <div class="buttons">
+                @Html.ActionLink("Criar evento", "TipoUsuario", "Usuario")
+            </div>
+        </div>
+    }
+</body>
+</html>

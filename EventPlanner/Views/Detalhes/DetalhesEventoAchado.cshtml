@@ -1,0 +1,39 @@
+﻿@model EventPlanner.Models.Evento
+
+@if (Model != null)
+{
+    <div class="evento">
+        <h2>@Model.NomeEvento</h2>
+        <p>@Model.Descricao</p>
+        <p>Data de Início: @Model.DataInicio.ToString("dd/MM/yyyy")</p>
+        <p>Data Final: @Model.DataFinal.ToString("dd/MM/yyyy")</p>
+        <p>Quantidade Máxima de Pessoas: @Model.QuantMaxPessoas</p>
+        <p>Quantidade de Crianças: @Model.QuantCriancas</p>
+        <p>Estado: @Model.Estado</p>
+        <p>Cidade: @Model.Cidade</p>
+        <p>Bairro: @Model.Bairro</p>
+    </div>
+
+    @using (Html.BeginForm("AdicionarComentario", "Evento"))
+    {
+        @Html.HiddenFor(model => model.ID)
+        <p>Comentário:</p>
+        <input type="text" name="Comentario" />
+        <input type="submit" value="Adicionar Comentario" />
+    }
+
+    @if (Model.Avaliacoes != null && Model.Avaliacoes.Count > 0)
+    {
+        <div class="comentarios">
+            <h3>Comentários:</h3>
+            @foreach (var avaliacao in Model.Avaliacoes)
+            {
+                <p>@avaliacao.Comentario (@avaliacao.DataComentario.ToString("dd/MM/yyyy"))</p>
+            }
+        </div>
+    }
+}
+else
+{
+    <p>Evento não encontrado.</p>
+}

@@ -1,0 +1,11 @@
+{
+  "dependencies": {
+    "mssql2": {
+      "serviceConnectorResourceId": "/subscriptions/[parameters('subscriptionId')]/resourcegroups/[parameters('resourceGroupName')]/providers/Microsoft.Web/sites/EventPlanner/providers/Microsoft.ServiceLinker/linkers/prototipo.database.windows.net_C496C9A5C4",
+      "secretStore": "AzureAppSettings",
+      "resourceId": "/subscriptions/[parameters('subscriptionId')]/resourceGroups/[parameters('resourceGroupName')]/providers/Microsoft.Sql/servers/prototipo/databases/teste",
+      "type": "mssql.azure",
+      "connectionId": "prototipo.database.windows.net"
+    }
+  }
+}

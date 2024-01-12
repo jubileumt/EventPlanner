@@ -1,0 +1,51 @@
+﻿@model EventPlanner.Models.Usuario
+
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="~/css/site.css" rel="stylesheet">
+    <title>Document</title>
+</head>
+<body>
+    <h1 class="titulo">EventPlanner</h1>
+
+    <div class="informacoes">
+        <h1 class="">Login</h1>
+
+        <div class="formulario">
+
+
+            <form method="post" asp-controller="Recuperar" asp-action="TipoLogin">
+                <div class="form-group">
+                    <label asp-for="Email" class="control-label"></label>
+                    <input asp-for="Email" class="form-control" />
+                    <span asp-validation-for="Email" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="CPF" class="control-label"></label>
+                    <input asp-for="CPF" type="text" class="form-control" />
+                    <span asp-validation-for="CPF" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="Senha" class="control-label"></label>
+                    <input asp-for="Senha" type="password" class="form-control" />
+                    <span asp-validation-for="Senha" class="text-danger"></span>
+                </div>
+
+                <button type="submit" class="btn btn-primary">Login</button>
+
+                <p><a href="/Bussola/RetornaIndex">Voltar ao login</a></p>
+            </form>
+
+
+        </div>
+    </div>
+
+
+</body>
+</html>
