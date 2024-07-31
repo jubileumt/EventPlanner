@@ -14,6 +14,7 @@ namespace EventPlanner.Models
         public int ID { get; set; }
 
         [Required(ErrorMessage = "O campo Nome é obrigatório.")]
+        [MaxLength(70, ErrorMessage = "Nome pode ter no maximo 70 caracteres")]
         [Display(Name = "Nome")]
         [Column("Nome")]
         public string Nome { get; set; }

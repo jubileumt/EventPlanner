@@ -1,11 +1,8 @@
-﻿
+﻿using EventPlanner.Data;
 using EventPlanner.Models;
 using EventPlanner.Validadores;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using EventPlanner.Data;
-
 
 namespace EventPlanner.Controllers
 {
@@ -24,20 +21,9 @@ namespace EventPlanner.Controllers
 
         [HttpPost]
         [HttpPost]
-
-
-        public async Task<IActionResult> Index()
-        {
-            return _context.Usuarios != null ?
-                        View(await _context.Usuarios.ToListAsync()) :
-                        Problem("Entity set 'UsuarioBD.Usuarios'  is null.");
-        }
-
-
-
         public async Task<IActionResult> TipoUsuario()
         {
-            var UsuarioIdString = HttpContext.Session.GetString("UserId");
+            var UsuarioIdString = HttpContext.Session.GetString("UsuarioID");
             if (UsuarioIdString == null)
             {
                 return RedirectToAction("Login");
@@ -52,15 +38,8 @@ namespace EventPlanner.Controllers
             {
                 return View("~/Views/Registro/RegistroEventoInfantilNormal.cshtml");
             }
-            else if (UsuarioPremium != null)
-            {
-                return View("~/Views/Registro/RegistroEventoInfantil.cshtml");
-            }
-
-            return View();
+            return View("~/Views/Registro/RegistroEventoInfantil.cshtml");
         }
-
-
 
         [HttpPost]
         public async Task<IActionResult> TipoLogin(Usuario usuario)
@@ -104,7 +83,7 @@ namespace EventPlanner.Controllers
 
                 if (SenhaCorreta)
                 {
-                    HttpContext.Session.SetString("UserId", UsuarioRegistrado.ID.ToString());
+                    HttpContext.Session.SetString("UsuarioID", UsuarioRegistrado.ID.ToString());
 
                     var Evento = await _contextEvento.Eventos.FirstOrDefaultAsync(e => e.ID == UsuarioRegistrado.eventoID);
 
@@ -121,10 +100,50 @@ namespace EventPlanner.Controllers
             return View("~/Views/Home/Index.cshtml");
         }
 
-
         public async Task<IActionResult> UserProfile()
         {
-            var UsuarioIdString = HttpContext.Session.GetString("UserId");
+            var UsuarioIdString = HttpContext.Session.GetString("UsuarioID");
+            if (UsuarioIdString == null)
+            {
+                return RedirectToAction("Login");
+            }
+
+            var UsuarioID = int.Parse(UsuarioIdString);
+
+            var Usuario = await _context.Usuarios.FirstOrDefaultAsync(u => u.ID == UsuarioID);
+            if (Usuario == null)
+            {
+                return RedirectToAction("Login");
+            }
+
+            var Eventos = await _contextEvento.Eventos.OrderByDescending(e => e.DataCriacao).Take(3).ToListAsync();
+
+            return View("~/Views/Home/MenuPrincipal.cshtml", Eventos);
+        }
+
+        public async Task<IActionResult> MeusEventosNormal()
+        {
+            var UsuarioIdString = HttpContext.Session.GetString("UsuarioID");
+            if (UsuarioIdString == null)
+            {
+                return RedirectToAction("Login");
+            }
+
+            var UsuarioID = int.Parse(UsuarioIdString);
+
+            var Usuario = await _context.Usuarios.FirstOrDefaultAsync(u => u.ID == UsuarioID);
+            if (Usuario == null)
+            {
+                return RedirectToAction("Login");
+            }
+
+            var Evento = await _contextEvento.Eventos.FirstOrDefaultAsync(e => e.ID == Usuario.eventoID);
+            return View("~/Views/Home/MenuEvento.cshtml", Evento);
+        }
+        
+        public async Task<IActionResult> FiltroEventos()
+        {
+            var UsuarioIdString = HttpContext.Session.GetString("UsuarioID");
             if (UsuarioIdString == null)
             {
                 return RedirectToAction("Login");
@@ -142,7 +161,7 @@ namespace EventPlanner.Controllers
             return View("~/Views/Home/MenuEvento.cshtml", Evento);
         }
 
-
+      
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null || _context.Usuarios == null)
@@ -165,14 +184,12 @@ namespace EventPlanner.Controllers
             return View();
         }
 
-
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("ID,Nome,Email,CPF,Telefone,Idade,Senha")] Usuario usuario)
         {
             if (ModelState.IsValid)
             {
-
                 bool CpfValido = ValidadorCpf.ValidaCPF(usuario.CPF);
                 if (!CpfValido)
                 {
@@ -232,14 +249,6 @@ namespace EventPlanner.Controllers
                 string senha = usuario.Senha;
                 usuario.Senha = Criptografia.GerarHash(senha);
 
-                //var maxIdNormal = await _context.Usuarios.MaxAsync(u => (int?)u.ID);
-
-                //var maxIdPremium = await _contextPremium.UsuariosPremium.MaxAsync(u => (int?)u.ID);
-
-                //int novoId = Math.Max(maxIdNormal ?? 0, maxIdPremium ?? 0) + 1;
-
-                //usuario.ID = novoId;
-
                 usuario.Tipo = 1;
 
                 _context.Add(usuario);
@@ -267,35 +276,68 @@ namespace EventPlanner.Controllers
             return View("~/Views/Registro/RegistroUsuario.cshtml");
         }
 
-        public async Task<IActionResult> Edit(int? id)
+        //
+        //public async Task<IActionResult> Edit(int? id)
+        //{
+        //    if (id == null || _context.Usuarios == null)
+        //    {
+        //        return NotFound();
+        //    }
+
+        //    var usuario = await _context.Usuarios.FindAsync(id);
+        //    if (usuario == null)
+        //    {
+        //        return NotFound();
+        //    }
+        //    return View(usuario);
+        //}
+
+        public async Task<IActionResult> MeuPerfil()
         {
-            if (id == null || _context.Usuarios == null)
+            var UsuarioIdString = HttpContext.Session.GetString("UsuarioID");
+            if (UsuarioIdString == null)
             {
-                return NotFound();
+                return RedirectToAction("Login");
+            }
+            else if (UsuarioIdString != null)
+            {
+                int UsuarioId = int.Parse(UsuarioIdString);
+                var Usuario = await _context.Usuarios.FirstOrDefaultAsync(u => u.ID == UsuarioId);
+                return View("~/Views/Detalhes/DetalhesUsuario.cshtml", Usuario);
             }
 
-            var usuario = await _context.Usuarios.FindAsync(id);
-            if (usuario == null)
+            var UsuarioIdStringPremium = HttpContext.Session.GetString("UsuarioPremiumID");
+            if (UsuarioIdStringPremium == null)
             {
-                return NotFound();
+                return RedirectToAction("Login");
             }
-            return View(usuario);
+            else if (UsuarioIdStringPremium != null)
+            {
+                int UsuarioPremiumId = int.Parse(UsuarioIdStringPremium);
+                var UsuarioPremium = await _contextPremium.UsuariosPremium.FirstOrDefaultAsync(u => u.ID == UsuarioPremiumId);
+                return View("~/Views/Detalhes/DetalhesUsuarioPremium.cshtml", UsuarioPremium);
+            }
+            return View();
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("ID,Nome,Email,CPF,Senha")] Usuario usuario)
+        public async Task<IActionResult> Edit([Bind("ID,Nome,Email,CPF,Telefone,Idade,Senha")] Usuario usuario)
         {
-            if (id != usuario.ID)
+            var UsuarioIdString = HttpContext.Session.GetString("UsuarioID");
+            if (UsuarioIdString == null)
             {
-                return NotFound();
+                return RedirectToAction("Login");
             }
-
-            if (ModelState.IsValid)
-            {
                 try
                 {
-                    _context.Update(usuario);
+                    int UsuarioId = int.Parse(UsuarioIdString);
+                    var Usuario = await _context.Usuarios.FirstOrDefaultAsync(u => u.ID == UsuarioId);
+                    Usuario.Nome = usuario.Nome;
+                    Usuario.Telefone = usuario.Telefone;
+                    Usuario.Email = usuario.Email;
+                    Usuario.Idade = usuario.Idade;
+                    _context.Update(Usuario);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
@@ -308,10 +350,10 @@ namespace EventPlanner.Controllers
                     {
                         throw;
                     }
-                }
+                
                 return RedirectToAction(nameof(Index));
             }
-            return View(usuario);
+            return View("~/Views/Detalhes/DetalhesUsuario.cshtml", usuario);
         }
 
         // GET: Usuarios1/Delete/5

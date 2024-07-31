@@ -1,0 +1,31 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link href="~/css/PlanosEventos.css" rel="stylesheet">
+    <link href="~/css/site.css" rel="stylesheet">
+</head>
+<body>
+    <h1>Escolha o tipo de usuário</h1>
+    <div class="user-options">
+        <a asp-action="CriarEventoInfantil" asp-controller="Evento">
+            <div class="content-box">
+                <table>
+                    <tr>
+                        <td>Aniversario infantil</td>
+                    </tr>
+                </table>
+            </div>
+        </a>
+
+        <a asp-action="CriarEventoAniversario" asp-controller="Evento">
+            <div class="content-box">
+                <table>
+                    <tr>
+                        <td>Aniversario adulto</td>
+                    </tr>
+                </table>
+            </div>
+        </a>
+    </div>
+</body>
+</html>

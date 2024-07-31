@@ -1,0 +1,25 @@
+﻿@model IEnumerable<EventPlanner.Models.Evento>
+
+@if (Model != null)
+{
+    foreach (var Evento in Model)
+    {
+        <div class="evento">
+
+            <h2>@Evento.NomeEvento</h2>
+            <p>@Evento.Descricao</p>
+            <p>Data de Início: @Evento.DataInicio.ToString("dd/MM/yyyy")</p>
+            <p>Data Final: @Evento.DataFinal.ToString("dd/MM/yyyy")</p>
+            <p>Quantidade Máxima de Pessoas: @Evento.QuantMaxPessoas</p>
+            <p>Quantidade de Crianças: @Evento.QuantCriancas</p>
+            <p>Estado: @Evento.Estado</p>
+            <p>Cidade: @Evento.Cidade</p>
+            <p>Bairro: @Evento.Bairro</p>
+
+        </div>
+    }
+}
+else
+{
+    <p>Nenhum evento encontrado para esse dia</p>
+}

@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace EventPlanner.Migrations
 {
     [DbContext(typeof(UsuarioPremiumBD))]
-    [Migration("20240111133954_Criacao-Inicial")]
+    [Migration("20240727194345_Criacao-Inicial")]
     partial class CriacaoInicial
     {
         /// <inheritdoc />
@@ -20,7 +20,7 @@ namespace EventPlanner.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "8.0.0")
+                .HasAnnotation("ProductVersion", "8.0.7")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
@@ -292,7 +292,8 @@ namespace EventPlanner.Migrations
 
                     b.Property<string>("Nome")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)")
+                        .HasMaxLength(70)
+                        .HasColumnType("nvarchar(70)")
                         .HasColumnName("Nome");
 
                     b.Property<string>("NumeroCartao")

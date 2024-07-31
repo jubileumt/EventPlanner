@@ -3,13 +3,18 @@
     "secrets1": {
       "type": "secrets.user"
     },
-    "mssql2": {
-      "serviceConnectorResourceId": "/subscriptions/[parameters('subscriptionId')]/resourceGroups/[parameters('resourceGroupName')]/providers/Microsoft.ServiceLinker/locations/brazilsouth/connectors/prototipo.database.windows.net_C496C9A5C4",
+    "mssql1": {
+      "serviceConnectorResourceId": "/subscriptions/[parameters('subscriptionId')]/resourceGroups/[parameters('resourceGroupName')]/providers/Microsoft.ServiceLinker/locations/eastus/connectors/ConnectionStringsDefaultConnection_F3F890A02A",
       "secretStore": "LocalSecretsFile",
-      "resourceId": "/subscriptions/[parameters('subscriptionId')]/resourceGroups/[parameters('resourceGroupName')]/providers/Microsoft.Sql/servers/prototipo/databases/teste",
+      "resourceId": "/subscriptions/[parameters('subscriptionId')]/resourceGroups/[parameters('resourceGroupName')]/providers/Microsoft.Sql/servers/sercidorteste/databases/Teste",
       "type": "mssql.azure",
-      "connectionId": "prototipo.database.windows.net",
+      "connectionId": "ConnectionStrings:DefaultConnection",
       "dynamicId": null
+    },
+    "mssql2": {
+      "ignored": "true",
+      "type": "mssql",
+      "connectionId": "sercidorteste.database.windows.net"
     }
   }
 }

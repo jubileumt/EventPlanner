@@ -16,7 +16,6 @@ namespace EventPlanner.Models
         public int ID { get; set; }
 
         [Required(ErrorMessage = "Nome Precisa ser informado")]
-        [MinLength(10, ErrorMessage = "Nome precisa ter no minimo 10 caracteres")]
         [MaxLength(70, ErrorMessage = "Nome pode ter no maximo 70 caracteres")]
         [Display(Name = "Nome")]
         [Column("Nome")]

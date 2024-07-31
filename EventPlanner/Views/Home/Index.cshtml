@@ -6,24 +6,25 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="~/css/site.css" rel="stylesheet">
+    <link href="~/css/site.css" rel="stylesheet"> <link href="~/css/Login.css" rel="stylesheet">
     <title>Document</title>
 </head>
 <body>
-    <h1 class="titulo">EventPlanner</h1>
+    <h1 >EventPlanner</h1>
 
     <div class="informacoes">
         <h1 class="">Login</h1>
 
         <div class="formulario">
+
             <form method="post" asp-controller="Usuario" asp-action="TipoLogin">
-                <div class="form-group">
+                <div class="form-group rounded">
                     <label asp-for="Email" class="control-label"></label>
                     <input asp-for="Email" class="form-control" />
                     <span asp-validation-for="Email" class="text-danger"></span>
                 </div>
 
-                <div class="form-group">
+                <div class="form-group rounded">
                     <label asp-for="Senha" class="control-label"></label>
                     <input asp-for="Senha" type="password" class="form-control" />
                     <span asp-validation-for="Senha" class="text-danger"></span>
@@ -31,9 +32,10 @@
 
                 <button type="submit" class="btn btn-primary">Login</button>
 
-                <p>Regitrar usuario padrão?<a href="/Bussola/RegistroUsuario">Registrar</a></p>
+                <p>Registrar-se?<a href="/Bussola/PlanosDeUsuarios">Registrar</a></p>
+                @* <p>Registrar usuario premium?<a href="/Bussola/RegistroUsuarioPremium">Registrar</a></p> *@
                 <p>RecuperarSenha?<a href="/Bussola/MudarSenha">Recuperar</a></p>
-                <p>Registrar usuario premium?<a href="/Bussola/RegistroUsuarioPremium">Registrar</a></p>
+               
             </form>
         </div>
     </div>

@@ -1,0 +1,37 @@
+﻿body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4; /* Cor de fundo da página */
+}
+
+.button-container {
+    overflow: hidden;
+    text-align: center;
+    padding: 20px 0; /* Adiciona mais espaço acima e abaixo do container de botões */
+}
+
+.top-button {
+    margin: 25px; /* Aumenta ainda mais o espaço entre os botões */
+    display: inline-block;
+    text-align: center;
+    padding: 14px 20px;
+    text-decoration: none;
+    font-size: 16px;
+    cursor: pointer;
+    border: none;
+    outline: none;
+    color: #ffffff; /* Cor do texto dos links */
+    background-color: #555; /* Cor de fundo dos links */
+    border-radius: 5px; /* Adiciona cantos arredondados aos botões */
+    transition: background-color 0.3s; /* Adiciona uma transição suave na cor de destaque */
+}
+
+    .top-button:hover {
+        background-color: #ddd; /* Altera a cor de destaque ao passar o mouse sobre os links */
+        color: #000000; /* Altera a cor do texto ao passar o mouse sobre os links */
+    }
+
+.content {
+    padding: 20px;
+}

@@ -3,6 +3,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <style>
         .search-container {
             display: flex;
@@ -14,20 +15,29 @@
                 width: 50%;
                 padding: 10px;
             }
+
+        #suggestions {
+            color: red
+        }
     </style>
 </head>
 <body>
+
+  
+@* 
     @using (Html.BeginForm("EventoEncontrado", "Evento", FormMethod.Get))
     {
         <div class="search-container">
-            <input asp-for="Buscador" type="text" placeholder="Pesquisar eventos" />
-            <input asp-for="ID" type="hidden" />
+            <input name="nomeEvento" type="text" placeholder="Pesquisar eventos" />
             <input type="submit" value="Pesquisar" />
             <span asp-validation-for="Buscador" class="text-danger"></span>
+            <ul id="suggestions"></ul>
         </div>
-    }
+    } *@
 
-    @if (Model != null)
+
+
+@if (Model != null)
     {
         <div class="evento">
             <h2>@Model.NomeEvento</h2>
@@ -48,4 +58,6 @@
         </div>
     }
 </body>
+
+
 </html>

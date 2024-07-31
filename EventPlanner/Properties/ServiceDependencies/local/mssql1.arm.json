@@ -4,7 +4,7 @@
   "parameters": {
     "resourceGroupName": {
       "type": "string",
-      "defaultValue": "eventplanner_group",
+      "defaultValue": "EventPlanner20240726220710ResourceGroup",
       "metadata": {
         "_parameterType": "resourceGroup",
         "description": "Nome do grupo de recursos do recurso. É recomendável colocar os recursos no mesmo grupo de recursos para melhor acompanhamento."
@@ -12,7 +12,7 @@
     },
     "resourceGroupLocation": {
       "type": "string",
-      "defaultValue": "brazilsouth",
+      "defaultValue": "eastus",
       "metadata": {
         "_parameterType": "location",
         "description": "Local do grupo de recursos. Os grupos de recursos podem ter um local diferente do local dos recursos."
@@ -36,7 +36,7 @@
     },
     {
       "type": "Microsoft.Resources/deployments",
-      "name": "[concat(parameters('resourceGroupName'), 'Deployment', uniqueString(concat('teste', subscription().subscriptionId)))]",
+      "name": "[concat(parameters('resourceGroupName'), 'Deployment', uniqueString(concat('Teste', subscription().subscriptionId)))]",
       "resourceGroup": "[parameters('resourceGroupName')]",
       "apiVersion": "2019-10-01",
       "dependsOn": [
@@ -51,7 +51,7 @@
             {
               "kind": "v12.0",
               "location": "[parameters('resourceLocation')]",
-              "name": "prototipo",
+              "name": "sercidorteste",
               "type": "Microsoft.Sql/servers",
               "apiVersion": "2017-10-01-preview"
             },
@@ -60,15 +60,15 @@
                 "name": "GP_S_Gen5",
                 "tier": "GeneralPurpose",
                 "family": "Gen5",
-                "capacity": 1
+                "capacity": 2
               },
-              "kind": "v12.0,user,vcore,serverless",
+              "kind": "v12.0,user,vcore,serverless,freelimit",
               "location": "[parameters('resourceLocation')]",
-              "name": "prototipo/teste",
+              "name": "sercidorteste/Teste",
               "type": "Microsoft.Sql/servers/databases",
               "apiVersion": "2017-10-01-preview",
               "dependsOn": [
-                "prototipo"
+                "sercidorteste"
               ]
             }
           ]

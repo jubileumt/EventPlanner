@@ -1,0 +1,113 @@
+﻿@model EventPlanner.Models.Evento
+
+<style>
+    .search-container {
+        display: flex;
+        justify-content: center;
+        margin: 20px 0;
+    }
+
+    .search-container input {
+        width: 50%;
+        padding: 10px;
+    }
+
+    #suggestions {
+        color: red
+    }
+</style>
+
+
+@* @using (Html.BeginForm("EventoEncontrado", "Evento", FormMethod.Get))
+{
+    <div class="search-container">
+        <input name="nomeEvento" type="text" placeholder="Pesquisar eventos" />
+        <input type="submit" value="Pesquisar" />
+        <span asp-validation-for="Buscador" class="text-danger"></span>
+        <ul id="suggestions"></ul>
+    </div>
+} *@
+
+<style>
+    .search-container {
+        display: flex;
+        justify-content: center;
+        margin: 20px 0;
+        position: relative;
+    }
+
+    .search-container input {
+        width: 50%;
+        padding: 10px;
+    }
+
+    .suggestions-list {
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        border: 1px solid #ccc;
+        background-color: #fff;
+        max-height: 150px;
+        overflow-y: auto;
+        z-index: 1000;
+        list-style-type: none;
+        padding: 0;
+        margin: 0;
+    }
+
+    .suggestions-list li {
+        padding: 8px;
+        cursor: pointer;
+    }
+
+    .suggestions-list li:hover {
+        background-color: #f0f0f0;
+    }
+</style>
+
+@using (Html.BeginForm("EventoEncontrado", "Evento", FormMethod.Get))
+{
+    <div class="search-container">
+        <input id="filtro" name="nomeEvento" type="text" placeholder="Pesquisar eventos" onkeyup="sugerirEventos()" />
+        <input type="submit" value="Pesquisar" />
+        <span asp-validation-for="Buscador" class="text-danger"></span>
+        <ul id="sugestoes" class="suggestions-list"></ul>
+    </div>
+}
+
+<script>
+    function sugerirEventos() {
+        var query = document.getElementById('filtro').value;
+        $.ajax({
+            url: '@Url.Action("GetEventos", "Evento")',
+            type: 'GET',
+            data: { term: query },
+            success: function (data) {
+                var sugestoes = document.getElementById('sugestoes');
+                sugestoes.innerHTML = '';
+                data.forEach(function (evento) {
+                    var li = document.createElement('li');
+                    li.textContent = evento.nomeEvento; // Certifique-se de que a propriedade correta está sendo usada
+                    sugestoes.appendChild(li);
+                });
+            },
+            error: function (xhr, status, error) {
+                console.error("Erro na solicitação AJAX:", status, error);
+            }
+        });
+    }
+</script>
+
+
+
+
+
+
+
+<h2>Busque eventos de um dia especifico</h2>
+<form method="get" asp-controller="Evento" asp-action="EventosPorData" >
+    <label asp-for="DataInicio">Data Inicial:</label>
+    <input type="datetime-local" asp-for="DataInicio">
+    <button type="submit">Enviar</button>
+</form>

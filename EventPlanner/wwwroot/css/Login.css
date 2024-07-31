@@ -1,0 +1,45 @@
+﻿.titulo, h1 {
+    text-align: center;
+}
+
+body {
+    margin: 0px;
+    padding: 0px;
+    height: 100vh;
+}
+
+.informacoes {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.user, .senha {
+    background-color: white;
+    padding: 10px; /* Adicione padding para espaçamento interno */
+    margin: 10px 0; /* Adicione margem para espaçamento entre os campos */
+    border-radius: 5px; /* Adicione borda arredondada */
+    width: 100%; /* Define a largura dos campos para preencher o espaço */
+}
+
+.formulario {
+    background-color: white;
+    border: 1px solid #ccc;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    height: 350px; /* Aumente a altura da caixa */
+    width: 280px;
+    margin-top: 30px;
+    display: flex;
+    gap: 50px;
+    flex-direction: column; /* Coloca os campos em coluna */
+    align-items: center; /* Centraliza os campos horizontalmente */
+    justify-content: center; /* Centraliza os campos verticalmente */
+}
+
+    .formulario label,
+    .formulario input {
+        margin-bottom: 10px;
+    }

@@ -21,7 +21,7 @@ namespace TesteMVC2
 
             builder.Services.AddScoped<ViaCepClient>();
 
-            string connectionString = "Server=tcp:prototipo.database.windows.net,1433;Initial Catalog=teste;Persist Security Info=False;User ID=henrique;Password=pedro311268@;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;";
+            string connectionString = "Server=tcp:sercidorteste.database.windows.net,1433;Initial Catalog=Teste;Persist Security Info=False;User ID=vodor;Password=Pedro311268@;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;";
 
             builder.Services.AddDbContext<UsuarioBD>(options =>
             {
@@ -42,6 +42,31 @@ namespace TesteMVC2
             {
                 options.UseSqlServer(connectionString);
             });
+
+            //builder.Services.AddDbContext<UsuarioBD>(options =>
+            //{
+            //    options.UseMySql("server=localhost;port=3306;database=eventplannerdb;user=root;",
+            //        new MySqlServerVersion(new Version(8, 2, 12)));
+            //});
+
+            //builder.Services.AddDbContext<UsuarioPremiumBD>(options =>
+            //{
+            //    options.UseMySql("server=localhost;port=3306;database=eventplannerdb;user=root;",
+            //        new MySqlServerVersion(new Version(8, 2, 12)));
+            //});
+
+            //builder.Services.AddDbContext<EventosBD>(options =>
+            //{
+            //    options.UseMySql("server=localhost;port=3306;database=eventplannerdb;user=root;",
+            //        new MySqlServerVersion(new Version(8, 2, 12)));
+            //});    
+
+            //builder.Services.AddDbContext<AvaliacaoBD>(options =>
+            //{
+            //    options.UseMySql("server=localhost;port=3306;database=eventplannerdb;user=root;",
+            //        new MySqlServerVersion(new Version(8, 2, 12)));
+            //});    
+
 
             builder.Services.AddDistributedMemoryCache();
 

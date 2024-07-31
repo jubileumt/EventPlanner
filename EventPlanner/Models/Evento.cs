@@ -209,6 +209,10 @@ namespace EventPlanner.Models
         [NotMapped]
         public double? QuantidadeQuardanapos { get; set; }
 
+        [Display(Name = "Orçamento do evento")]
+        [NotMapped]
+        public decimal? Orcamento { get; set; }
+
         [Column("Identificador")]
         public string? Identificador { get; set; }
 

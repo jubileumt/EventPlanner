@@ -30,7 +30,7 @@ namespace TesteMVC2.Controllers
 
             if (usuarioRegistrado != null && usuarioRegistrado.Tipo == 1)
             {
-                return RedirectToAction("Login", usuario);
+                return RedirectToAction("LoginEfetivo", usuario);
 
             }
             else if (usuarioPremiumRegistrado != null && usuarioPremiumRegistrado.Tipo == 2)

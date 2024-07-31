@@ -1,0 +1,47 @@
+﻿@model IEnumerable<EventPlanner.Models.Evento>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Três Links</title>
+    <link href="~/css/Principal.css" rel="stylesheet">
+</head>
+<body>
+
+<div id="top-link" class="button-container">
+
+    <a asp-action="RedirecionarParaMeusEventos" asp-controller="Evento" class="top-button">Meus Eventos</a>
+    <a asp-action="TiposDeEventos" asp-controller="Bussola" class="top-button">Criar Evento</a>
+    <a asp-action="FiltrosEventos" asp-controller="Bussola" class="top-button">Eventos</a>
+    <a asp-action="MeuPerfil" asp-controller="Usuario" class="top-button">Meu Perfil</a>
+
+</div>
+<div class="content">
+
+    @{
+        foreach (var item in Model)
+        {
+            <div class="card">
+                <div class="card-header">
+                    <h1>@item.NomeEvento</h1>
+                </div>
+                <div class="card-body">
+                    <p>@item.Descricao</p>
+                    <p>Local: @item.Cidade</p>
+                    <p>Data: @item.DataCriacao</p>
+                    <p>Horario: @item.DataInicio</p>
+                </div>
+                <div class="card-footer">
+                    <a asp-action="EventoEncontrado" asp-controller="Evento" asp-route-id="@item.ID" class="button">Ver mais</a>
+                </div>
+            </div>
+        }
+    }
+
+
+</div>
+
+</body>
+</html>
